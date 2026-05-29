@@ -23,6 +23,11 @@ st.set_page_config(
 # ─── API KEY FROM ENVIRONMENT / STREAMLIT SECRETS ────────────
 load_dotenv()
 
+headers = {
+    "authorization": st.secrets["DEEPSEEK_API_KEY"],
+    "content-type": "application/json"
+}
+
 def get_api_key():
     try:
         return st.secrets["DEEPSEEK_API_KEY"]
@@ -1164,26 +1169,26 @@ elif page == "about":
 </div>""", unsafe_allow_html=True)
 
     with cr:
-        st.markdown("### 📅 Weekly Development Timeline")
+        st.markdown("### Sections")
         st.markdown("""
 <div class="timeline">
   <div class="tl-item">
-    <div class="tl-week">Week 1</div>
+    <div class="tl-week">Section 1</div>
     <div class="tl-title">Data Exploration & Preprocessing</div>
     <div class="tl-body">Loaded 1M ArXiv papers · filtered 41k→80 categories · TF-IDF ready</div>
   </div>
   <div class="tl-item">
-    <div class="tl-week">Week 2</div>
+    <div class="tl-week">Section 2</div>
     <div class="tl-title">Classical ML Pipeline</div>
     <div class="tl-body">LR · Naive Bayes · SVM · 4 summarisers · ROUGE evaluation · 89.4% accuracy</div>
   </div>
   <div class="tl-item">
-    <div class="tl-week">Week 3</div>
+    <div class="tl-week">Section 3</div>
     <div class="tl-title">LLM Integration & RAG</div>
     <div class="tl-body">DeepSeek-V3 · Zero/Few/CoT prompting · FAISS RAG · 0.51 ROUGE-1</div>
   </div>
   <div class="tl-item">
-    <div class="tl-week">Week 4</div>
+    <div class="tl-week">Section 4</div>
     <div class="tl-title">Streamlit Web App</div>
     <div class="tl-body">VSCode dev → GitHub → Streamlit Cloud deployment · this interface</div>
   </div>
