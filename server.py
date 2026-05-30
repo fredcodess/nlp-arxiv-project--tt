@@ -23,11 +23,6 @@ st.set_page_config(
 # ─── API KEY FROM ENVIRONMENT / STREAMLIT SECRETS ────────────
 load_dotenv()
 
-st.write("Secrets available:", list(st.secrets.keys()))
-
-api_key = st.secrets.get("DEEPSEEK_API_KEY", "")
-st.write("Key exists:", bool(api_key))
-st.write("Key length:", len(api_key))
 
 def get_api_key():
     try:
@@ -610,16 +605,10 @@ def keyword_density(ab):
 def get_llm_client():
     try:
         from openai import OpenAI
-
-        st.write("API key length:", len(DEEPSEEK_API_KEY))
-
-        return OpenAI(
-            api_key=DEEPSEEK_API_KEY,
-            base_url="https://api.deepseek.com"
-        )
-
-    except Exception as e:
-        st.error(f"Client creation failed: {e}")
+        if not DEEPSEEK_API_KEY:
+            return None
+        return OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com")
+    except ImportError:
         return None
 
 def call_deepseek(prompt, system="", max_tokens=300, temperature=0.0):
